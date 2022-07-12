@@ -15,6 +15,7 @@ pair<int, int> findStart(vector<string> const &graph)
                 return {i, j};
         }
     }
+    return {0,0};
 }
 
 pair<int, int> directions[] = {
@@ -22,30 +23,22 @@ pair<int, int> directions[] = {
     {-1, 2},
     {1, 2},
     {2, 1}};
-int dfs(pair<int, int> start, vector<string> &graph)
+
+int dfs(pair<int, int> start, vector<string> &graph,vector<vector<int>> &dp)
 {
+    if(dp[start.first][start.second] != -1)
+    return dp[start.first][start.second];
     int ans = 0;
-    queue<pair<int, int>> q;
-    q.push(start);
-    while (q.size())
+    for (auto direction: directions)
     {
-        auto front = q.front();
-        q.pop();
-        for (auto direction : directions)
-        {
-            int newx = front.first + direction.first;
-            int newy = front.second + direction.second;
-            if (newx < 0 || newx >= graph.size() || newy >= graph.size())
-                continue;
-            if (graph[newx][newy] == 'K')
-                continue;
-            if (graph[newx][newy] == 'P')
-                ans++;
-            graph[newx][newy] = 'K';
-            q.push({newx, newy});
-        }
+        int newx = start.first + direction.first;
+        int newy = start.second + direction.second;
+        if(newx >= graph.size() || newx < 0 || newy >= graph.size())
+        continue;
+        ans = max(ans,dfs({newx,newy},graph,dp));
     }
-    return ans;
+    if(graph[start.first][start.second] == 'P') ans++;
+    return dp[start.first][start.second] = ans;
 }
 
 void solve()
@@ -56,7 +49,8 @@ void solve()
     for (auto &i : graph)
         cin >> i;
     auto start = findStart(graph);
-    cout << dfs(start, graph) << endl;
+    vector<vector<int>> dp(n,vector<int>(n,-1));
+    cout << dfs(start, graph,dp) << endl;
 }
 
 int main()
