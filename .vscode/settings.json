@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "__bit_reference": "cpp",
-        "vector": "cpp"
+        "vector": "cpp",
+        "queue": "cpp"
     }
 }
