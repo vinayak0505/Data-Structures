@@ -12,22 +12,11 @@ struct TreeNode {
 };
 
 class Solution {
-    char toChar(int val){
-        return 'a' + val;
-    }
-    string cmin(string a,string b){
-        int to = min(a.size(),b.size());
-        for(int i = 0;i<to;i++){
-            if(a[i] == b[i]) continue;
-            if(a[i] < b[i]) return b;
-            return a;
-        }
-        if(a.size() > b.size()) return a;
-        return b;
-    }
+
 public:
-    string smallestFromLeaf(TreeNode* root) {
-        if(root == nullptr) return ""; 
-        return cmin(smallestFromLeaf(root->left),smallestFromLeaf(root->right)) + toChar(root->val);
+    string smallestFromLeaf(TreeNode* r,string s = "") {
+        s = string(1, 'a' + r->val) + s;
+    return r->left == r->right ? s : min(r->left ? smallestFromLeaf(r->left, s) : "|", 
+        r->right ? smallestFromLeaf(r->right, s) : "|");
     }
 };
