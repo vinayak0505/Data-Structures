@@ -10,6 +10,7 @@
         "deque": "cpp",
         "list": "cpp",
         "string": "cpp",
-        "iosfwd": "cpp"
+        "iosfwd": "cpp",
+        "unordered_map": "cpp"
     }
 }
