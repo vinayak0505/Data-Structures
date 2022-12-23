@@ -29,6 +29,13 @@ public:
         }
         return false;
     }
+
+    void unlockAll(int user){
+        for(int i : children[user]){
+            locked[i] = -1;
+            unlockAll(i);
+        }
+    }
     
     bool lockChild(int user){
         if(user == -1) return false;
@@ -48,12 +55,12 @@ public:
     bool upgrade(int num, int user) {
         if(lockParent(num) && lockChild(num)){
             locked[num] = user;
+            unlockAll(num);
             return true;
         }
         return false;
     }
 };
-
 /**
  * Your LockingTree object will be instantiated and called as such:
  * LockingTree* obj = new LockingTree(parent);
