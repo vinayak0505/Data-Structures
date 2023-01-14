@@ -7,8 +7,8 @@ class Solution {
     void join(
         int edge,
         int par,
-        vector<vector<int>> from,
-        vector<vector<int>> to)
+        vector<vector<int>>& from,
+        vector<vector<int>>& to)
     {
         for(int child: from[edge]){
             if(child == par) continue;
