@@ -11,6 +11,17 @@
         "list": "cpp",
         "string": "cpp",
         "iosfwd": "cpp",
-        "unordered_map": "cpp"
+        "unordered_map": "cpp",
+        "__hash_table": "cpp",
+        "__string": "cpp",
+        "__tree": "cpp",
+        "algorithm": "cpp",
+        "cstdio": "cpp",
+        "map": "cpp",
+        "string_view": "cpp",
+        "typeinfo": "cpp",
+        "unordered_set": "cpp",
+        "new": "cpp",
+        "__availability": "cpp"
     }
 }
