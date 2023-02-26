@@ -1,36 +1,30 @@
-#include "queue"
+#include "vector"
 
 using namespace std;
 
 class Solution {
+
+    int count(int mid,vector<vector<int>>& matrix){
+        int ans = 0;
+        for(int i = 0,j = matrix.front().size();i<matrix.size() && j;i++){
+            while(j && matrix[i][j - 1] > mid) j--;
+            ans += j;
+        }
+        return ans;
+    }
 public:
-    vector<vector<int>> kSmallestPairs(vector<int>& nums1, vector<int>& nums2, int k) {
-        vector<vector<int>>ans;
-        priority_queue<pair<int,pair<int,int>>>pq;
-
-
-
-        for(int i=0;i<nums1.size();i++){
-            for(int j=0;j<nums2.size();j++){
-                int sum=nums1[i]+nums2[j];
-                
-                if(pq.size()<k) pq.push({sum,{nums1[i],nums2[j]}});
-
-                else if(sum<pq.top().first){
-                    pq.pop();
-                    pq.push({sum,{nums1[i],nums2[j]}});
-                }
-                else{
-                    break;
-                }
+    int kthSmallest(vector<vector<int>>& matrix, int k) {
+        int low = matrix.front().front();
+        int high = matrix.back().back();
+        while(low <= high){
+            int mid = (high + low) / 2;
+            int pos = count(mid,matrix);
+            if(pos < k){
+                low = mid + 1;
+            }else {
+                high = mid - 1;
             }
         }
-        while(!pq.empty()){
-            
-            ans.push_back({pq.top().second.first,pq.top().second.second});
-            pq.pop();
-        }
-        reverse(ans.begin(),ans.end());
-        return ans;
+        return low;
     }
 };
