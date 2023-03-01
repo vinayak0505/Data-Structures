@@ -1,37 +1,32 @@
 #include "vector"
+#include "string"
 
 using namespace std;
 
 class Solution {
-    void _sortArray(vector<int>& nums,int start,int end) {
-        if(start == end) return;
-        int mid = (start + end)/2;
-        _sortArray(nums,start,mid);
-        _sortArray(nums,mid + 1,end);
-        int p1 = start,p2 = mid + 1;
-        vector<int> ans;
-        while(p1 <= mid && p2 <= end){
-            if(nums[p1] < nums[p2]){
-                ans.push_back(nums[p1++]);
-            }else{
-                ans.push_back(nums[p2++]);
+    bool check(vector<int>&a, vector<int>&b,int k){
+        for(int i = 0;i<a.size();i++){
+            if(b[i] == a[i]) continue;
+            if(b[i] - a[i] < k) return false;
+        }
+        return true;
+    }
+
+public:
+    int longestSubstring(string s, int k) {
+        if(s.size() < k) return 0;
+        vector<int> count(26);
+        for(char c: s){
+            count[c - 'a']++;
+        }
+        for(int i = 0;i<s.size();i++){
+            if(count[s[i] - 'a'] < k){
+                return max(
+                    longestSubstring(s.substr(0,i),k),
+                    i + 1 == s.size() ? 0 :longestSubstring(s.substr(i + 1),k)
+                );
             }
         }
-
-        while(p1 <= mid){
-            ans.push_back(nums[p1++]);
-        }
-
-        while(p2 <= end){
-            ans.push_back(nums[p2++]);
-        }
-        for(int i = 0;start <= end;start++,i++){
-            nums[start] = ans[i];
-        }
-    }
-public:
-    vector<int> sortArray(vector<int>& nums) {
-        _sortArray(nums,0,nums.size() - 1);
-        return nums;
+        return s.size();
     }
 };
