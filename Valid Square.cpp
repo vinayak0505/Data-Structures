@@ -13,6 +13,9 @@ class Solution {
         vector<int>& p2, 
         vector<int>& p3
     ){
+        if(p1 == p2) return false;
+        if(p2 == p3) return false;
+        if(p1 == p3) return false;
         int d1 = sq(p2.back() - p1.back()) + sq(p2.front() - p1.front());
         int d2 = sq(p2.back() - p3.back()) + sq(p2.front() - p3.front());
         int d3 = sq(p1.back() - p3.back()) + sq(p1.front() - p3.front());
