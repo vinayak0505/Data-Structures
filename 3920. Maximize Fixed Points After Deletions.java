@@ -13,21 +13,17 @@ class Solution {
         }
     }
 
-    private int upperBound(ArrayList<Integer> array, int value) {
-        int l = 0, r = array.size();
-        if (r == 0)
-            return 0;
-        int ans = r;
+    private int upperBound(ArrayList<Integer> list, int value) {
+        int l = 0, r = list.size();
         while (l < r) {
-            int mid = (l + r) / 2;
-            if (array.get(mid) > value) {
-                ans = mid;
-                r = mid - 1;
-            } else {
+            int mid = l + (r - l) / 2; // Prevents overflow
+            if (list.get(mid) <= value) {
                 l = mid + 1;
+            } else {
+                r = mid;
             }
         }
-        return ans;
+        return l;
     }
 
     private int helper(ArrayList<Integer> diff) {
