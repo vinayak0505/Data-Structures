@@ -1,21 +1,23 @@
 class Solution {
-    // total sum, total pairs.
-    private int[] helper(int l, int r, int k){
-        int sum = 0;
-        for(int i = l;i<= r;i++){
-            sum += i;
-        }
-        int diff = r - l + 1;
-
-        if(k == 1){
-            return new int[]{sum, diff};
-        }
-        int[] got = helper(l, r, k - 1);
-        int totalsum = sum * (int)Math.pow(10, k - 1) * got[1];
-        totalsum += got[0] * diff;
-        return new int[]{totalsum, got[1] * diff};
-    }
+    int mod = (int)1e9 + 7;
     public int sumOfNumbers(int l, int r, int k) {
-        return helper(l, r, k)[0];
+        long sum = 0;
+        for (int i = l; i <= r; i++) sum += i;
+        long diff = r - l + 1;
+        long times = power(diff, k - 1);
+        long singleDigitContribution = (times * sum) % mod;
+        long mul = power(10, k);
+        long inverse = power(9,  mod - 2);
+        return (int)((singleDigitContribution * ((mul - 1 + mod) % mod * inverse % mod)) % mod);
+    }
+
+    private long power(long a, long b){
+        long res = 1;
+        while(b > 0){
+            if((b & 1) == 1) res = (res * a) % mod;
+            a = (a * a) % mod;
+            b >>= 1;
+        }
+        return res;
     }
 }
