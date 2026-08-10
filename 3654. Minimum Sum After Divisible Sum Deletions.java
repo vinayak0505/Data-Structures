@@ -1,32 +1,27 @@
-import java.util.HashMap;
+import java.util.Arrays;
 
 class Solution {
     public long minArraySum(int[] nums, int k) {
-        long ans = 0;
+        int maxNum = (int)1e6 + 1;
+        int n= nums.length;
+
+        long[] dp = new long[maxNum];
+
+        Arrays.fill(dp, -1);
+        dp[0] = 0;
+
         long sum = 0;
-        int n = nums.length;
-
-        for(int i = 0;i< n;i++){
-            sum += nums[i];
-        }
-
-        ans = sum;
-        HashMap<Integer, Long> remainderToSumMap = new HashMap<>();
-        int remainder = 0;
-        long curSum = 0;
-        remainderToSumMap.put(0, 0l);
-
         for(int i = 0;i<n;i++){
-            remainder = (remainder + nums[i]) % k;
-            curSum += nums[i];
-
-            if(remainderToSumMap.containsKey(remainder)){
-                ans = Math.min(ans, sum - (curSum - remainderToSumMap.get(remainder)));
+            sum += nums[i];
+            int remainder = (int)(sum % k);
+            if(dp[remainder] == -1){
+                dp[remainder] = sum;
             }else{
-                remainderToSumMap.put(remainder, curSum);
+                long min = Math.min(sum, dp[remainder]);
+                sum = min;
+                dp[remainder] = min;
             }
         }
-        return ans;
-
+        return sum;
     }
 }
