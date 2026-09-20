@@ -1,5 +1,3 @@
-import java.util.Arrays;
-
 class Solution {
 
     private int[][] direction = new int[][] {
@@ -126,14 +124,6 @@ class Solution {
                 }
             }
         }
-        // for (int i = 0; i < 4; i++) {
-        //     for (int j = 0; j < n; j++) {
-        //         System.out.print(Arrays.toString(dpFrom1[i][j]));
-        //         System.out.print(" ");
-        //         System.out.println(Arrays.toString(dpMaxPattern[i][j]));
-        //     }
-        //     System.out.println();
-        // }
 
         int maxLen = 1;
 
