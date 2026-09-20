@@ -1,5 +1,3 @@
-import java.util.Arrays;
-
 class Solution {
 
     private int getCurState(int a, int b) {
