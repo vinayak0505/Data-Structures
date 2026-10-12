@@ -2,7 +2,6 @@ import java.util.Arrays;
 
 class Solution {
     public int maxTotalReward(int[] rewardValues) {
-        int n = rewardValues.length;
         Arrays.sort(rewardValues);
         int value = 0;
         for (int reward : rewardValues) {
